@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     // Send email using Resend
     const { data, error } = await resend.emails.send({
       from: "ATOMi Contact Form <onboarding@resend.dev>", // You can customize this
-      to: "info@atomi.rw",
+      to: "kelly@atomi.rw",
       replyTo: email,
       subject: `Contact Form: ${subject}`,
       html: `
