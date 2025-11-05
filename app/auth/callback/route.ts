@@ -2,13 +2,21 @@ import { createClient } from "@/lib/supabase/server"
 import { NextResponse } from "next/server"
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
+  const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get("code")
+  const next = searchParams.get("next") ?? "/"
 
   if (code) {
     const supabase = await createClient()
-    await supabase.auth.exchangeCodeForSession(code)
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    
+    if (!error) {
+      // Successfully authenticated, redirect to home page
+      // Using origin ensures it works in both development and production
+      return NextResponse.redirect(`${origin}${next}`)
+    }
   }
 
-  return NextResponse.redirect(new URL("/", request.url))
+  // Return the user to an error page with instructions
+  return NextResponse.redirect(`${origin}/auth/error?error=Unable to verify email`)
 }
