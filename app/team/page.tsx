@@ -7,6 +7,7 @@ import { Mail, Linkedin } from "lucide-react"
 import { useEffect, useState } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Loader2 } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
 interface TeamMember {
   id: string
@@ -23,6 +24,7 @@ export default function TeamPage() {
   const [members, setMembers] = useState<TeamMember[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null)
   const supabase = createClient()
 
   useEffect(() => {
@@ -91,7 +93,10 @@ export default function TeamPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {members.map((member, index) => (
                 <ScrollReveal key={member.id} delay={index * 100} direction="up">
-                  <div className="bg-background rounded-xl overflow-hidden border border-border hover:border-foreground/20 transition-all duration-300 group h-full flex flex-col">
+                  <div 
+                    className="bg-background rounded-xl overflow-hidden border border-border hover:border-foreground/20 transition-all duration-300 group h-full flex flex-col cursor-pointer"
+                    onClick={() => setSelectedMember(member)}
+                  >
                     {/* Image */}
                     <div className="bg-muted h-64 flex items-center justify-center overflow-hidden relative">
                       {member.image_url ? (
@@ -111,12 +116,12 @@ export default function TeamPage() {
                       </div>
 
                       {/* Contact */}
-                      <div className="space-y-3 pt-4 border-t border-border">
+                      <div className="flex flex-col space-y-3 pt-4 border-t border-border" onClick={(e) => e.stopPropagation()}>
                         <a
                           href={`mailto:${member.email}`}
-                          className="inline-flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors"
+                          className="flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors w-full"
                         >
-                          <Mail size={16} />
+                          <Mail size={16} className="flex-shrink-0" />
                           <span className="truncate">{member.email}</span>
                         </a>
                         {member.linkedin_url && (
@@ -124,9 +129,9 @@ export default function TeamPage() {
                             href={member.linkedin_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors"
+                            className="flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors w-full"
                           >
-                            <Linkedin size={16} />
+                            <Linkedin size={16} className="flex-shrink-0" />
                             <span>LinkedIn Profile</span>
                           </a>
                         )}
@@ -174,6 +179,57 @@ export default function TeamPage() {
           </div>
         </div>
       </section>
+
+      {/* Full Description Dialog */}
+      <Dialog open={!!selectedMember} onOpenChange={(open) => !open && setSelectedMember(null)}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          {selectedMember && (
+            <>
+              <DialogHeader>
+                <div className="flex items-center gap-4 mb-4">
+                  {selectedMember.image_url && (
+                    <img
+                      src={selectedMember.image_url}
+                      alt={selectedMember.name}
+                      className="w-20 h-20 rounded-full object-cover"
+                    />
+                  )}
+                  <div>
+                    <DialogTitle className="text-2xl">{selectedMember.name}</DialogTitle>
+                    <DialogDescription className="text-base mt-1">{selectedMember.role}</DialogDescription>
+                  </div>
+                </div>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold mb-2">About</h4>
+                  <p className="text-foreground/70 leading-relaxed whitespace-pre-line">{selectedMember.bio}</p>
+                </div>
+                <div className="flex flex-col space-y-3 pt-4 border-t border-border">
+                  <a
+                    href={`mailto:${selectedMember.email}`}
+                    className="flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors"
+                  >
+                    <Mail size={16} className="flex-shrink-0" />
+                    <span>{selectedMember.email}</span>
+                  </a>
+                  {selectedMember.linkedin_url && (
+                    <a
+                      href={selectedMember.linkedin_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors"
+                    >
+                      <Linkedin size={16} className="flex-shrink-0" />
+                      <span>LinkedIn Profile</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       <Footer />
     </div>
