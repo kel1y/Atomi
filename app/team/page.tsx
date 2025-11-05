@@ -166,7 +166,7 @@ export default function TeamPage() {
               },
               {
                 title: "Sustainability",
-                description: "We're committed to building a clean energy future that benefits generations to come.",
+                description: "We're committed to building a sustainable, clean energy future that benefits generations to come.",
               },
             ].map((value, index) => (
               <ScrollReveal key={value.title} delay={index * 100} direction="up">
