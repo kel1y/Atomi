@@ -45,24 +45,24 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Resources</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="opacity-80 hover:opacity-100 transition-opacity">
+                <Link href="/contact" className="opacity-80 hover:opacity-100 transition-opacity">
                   Documentation
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="opacity-80 hover:opacity-100 transition-opacity">
+                <Link href="/contact" className="opacity-80 hover:opacity-100 transition-opacity">
                   Research
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="opacity-80 hover:opacity-100 transition-opacity">
+                <Link href="/contact" className="opacity-80 hover:opacity-100 transition-opacity">
                   Press Kit
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="opacity-80 hover:opacity-100 transition-opacity">
+                <Link href="/contact" className="opacity-80 hover:opacity-100 transition-opacity">
                   FAQ
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -72,19 +72,19 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Legal</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="opacity-80 hover:opacity-100 transition-opacity">
+                <Link href="/contact" className="opacity-80 hover:opacity-100 transition-opacity">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="opacity-80 hover:opacity-100 transition-opacity">
+                <Link href="/contact" className="opacity-80 hover:opacity-100 transition-opacity">
                   Terms of Service
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="opacity-80 hover:opacity-100 transition-opacity">
+                <Link href="/contact" className="opacity-80 hover:opacity-100 transition-opacity">
                   Cookie Policy
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -94,14 +94,29 @@ export function Footer() {
         <div className="border-t border-primary-foreground/20 pt-8 flex flex-col md:flex-row justify-between items-center text-sm opacity-80">
           <p>&copy; {currentYear} ATOMi. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="hover:opacity-100 transition-opacity">
+            <a 
+              href="https://x.com/ATOMi_Stefan" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:opacity-100 transition-opacity"
+            >
               Twitter
             </a>
-            <a href="#" className="hover:opacity-100 transition-opacity">
+            <a 
+              href="https://www.linkedin.com/company/atomi-energy/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:opacity-100 transition-opacity"
+            >
               LinkedIn
             </a>
-            <a href="#" className="hover:opacity-100 transition-opacity">
-              GitHub
+            <a 
+              href="https://www.instagram.com/atomic_journey_" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:opacity-100 transition-opacity"
+            >
+              Instagram
             </a>
           </div>
         </div>
